@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WheelFragment">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="265dp"
+        android:contentDescription="Color Wheel"
+        android:src="@drawable/color_wheel" />
+
+    <TextView
+        android:id="@+id/mHexResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/colorView1"
+        android:layout_alignParentStart="true"
+        android:text="HEX: \nRGB:"
+        android:textColor="#000"
+        android:textSize="18sp" />
+
+    <View
+        android:id="@+id/colorView1"
+        android:layout_width="125dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/imageView"
+        android:layout_alignParentStart="true" />
+
+    <View
+        android:id="@+id/colorView2"
+        android:layout_width="125dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/imageView"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="0dp" />
+
+    <View
+        android:id="@+id/colorView3"
+        android:layout_width="125dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/imageView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="259dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp" />
+
+</RelativeLayout>
