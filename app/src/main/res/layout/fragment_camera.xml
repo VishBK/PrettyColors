@@ -5,10 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".CameraFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
+    <ImageView
+        android:id="@+id/cameraImage"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_gravity="top|fill_vertical|fill_horizontal"
+        android:src="@android:color/background_light" />
 </FrameLayout>
