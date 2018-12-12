@@ -195,9 +195,11 @@ public class WheelFragment extends Fragment implements View.OnTouchListener {
     }
 
     public String parse(String jsonLine) {
-        JsonObject jobj = new Gson().fromJson(jsonLine, JsonObject.class);
-        String result = jobj.get("name").getAsString();
-        Log.i("Result", result);
+        JsonElement jelement = new JsonParser().parse(jsonLine);
+        JsonObject  jobject = jelement.getAsJsonObject();
+        JsonArray jarray = jobject.getAsJsonArray("colors");
+        jobject = jarray.get(0).getAsJsonObject();
+        String result = jobject.get("name").getAsString();
         return result;
     }
 }
