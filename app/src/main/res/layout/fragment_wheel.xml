@@ -13,7 +13,7 @@
         android:src="@drawable/color_wheel" />
 
     <TextView
-        android:id="@+id/mHexResult"
+        android:id="@+id/hexResult"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/colorView1"

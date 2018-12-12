@@ -43,7 +43,7 @@ public class WheelFragment extends Fragment implements View.OnTouchListener {
         View v = inflater.inflate(R.layout.fragment_wheel, container, false);
 
         mImageView = v.findViewById(R.id.imageView);
-        mHexResult = v.findViewById(R.id.mHexResult);
+        mHexResult = v.findViewById(R.id.hexResult);
         mColorView1 = v.findViewById(R.id.colorView1);
         mColorView2 = v.findViewById(R.id.colorView2);
         mColorView3 = v.findViewById(R.id.colorView3);
