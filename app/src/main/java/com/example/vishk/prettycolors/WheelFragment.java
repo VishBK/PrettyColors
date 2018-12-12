@@ -21,20 +21,13 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import java.io.FileReader;
-import java.util.Iterator;
-import java.util.Map;
-
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.json.JSONObject;
 
-import java.io.FileReader;
 
 
 /**
@@ -50,7 +43,6 @@ public class WheelFragment extends Fragment implements View.OnTouchListener {
     private Button saveButton;
     private float[] hsv1, hsv2, hsv3;
     public PaletteItem paletteItem;
-    RetrieveFeedTask feedTask;
 
     public WheelFragment() {
         // Required empty public constructor
@@ -109,9 +101,6 @@ public class WheelFragment extends Fragment implements View.OnTouchListener {
                         mEditG.setText("" + g);
                         mEditB.setText("" + b);
 
-                        //String name = feedTask.doInBackground(hex);
-                        //colorName.setText(name);
-
                         // Instantiate the RequestQueue.
                         RequestQueue queue = Volley.newRequestQueue(getActivity());
                         String url = "https://api.color.pizza/v1/" + hex;
@@ -137,6 +126,7 @@ public class WheelFragment extends Fragment implements View.OnTouchListener {
                         queue.add(jsonObjectRequest);
                         //parse();
 
+                        colorName.setTextColor(Color.HSVToColor(hsv1));
                         mColorView1.setBackgroundColor(Color.HSVToColor(hsv1));
                         mColorView2.setBackgroundColor(Color.HSVToColor(hsv2));
                         mColorView3.setBackgroundColor(Color.HSVToColor(hsv3));
