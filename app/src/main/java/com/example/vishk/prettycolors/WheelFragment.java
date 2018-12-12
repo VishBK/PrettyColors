@@ -7,11 +7,13 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,15 +27,12 @@ public class WheelFragment extends Fragment implements View.OnTouchListener {
     private TextView mHexResult;
     private View mColorView1, mColorView2, mColorView3;
     private Bitmap bitmap;
-
-    private final SurfaceHolder mHolder;
-    private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Button saveButton;
+    private float[] hsv1, hsv2, hsv3;
+    public Palette palette;
 
     public WheelFragment() {
         // Required empty public constructor
-        surfaceHolder = getHolder();
-        paint.setColor(Color.RED);
-        paint.setStyle(Paint.Style.FILL);
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -48,9 +47,17 @@ public class WheelFragment extends Fragment implements View.OnTouchListener {
         mColorView1 = v.findViewById(R.id.colorView1);
         mColorView2 = v.findViewById(R.id.colorView2);
         mColorView3 = v.findViewById(R.id.colorView3);
+        saveButton = v.findViewById(R.id.saveColors);
 
         mImageView.setDrawingCacheEnabled(true);
         mImageView.buildDrawingCache(true);
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                palette = new Palette(hsv1, hsv2, hsv3, "");
+                ColorsFragment.addPalette(palette);
+            }
+        });
 
         mImageView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -65,23 +72,24 @@ public class WheelFragment extends Fragment implements View.OnTouchListener {
                     int g = Color.green(pixel);
                     int b = Color.blue(pixel);
 
-                    float[] hsv = new float[3];
-                    Color.RGBToHSV(r, g, b, hsv);
+                    hsv1 = new float[3];
+                    hsv2 = new float[3];
+                    hsv3 = new float[3];
+                    Color.RGBToHSV(r, g, b, hsv1);
+                    Color.RGBToHSV(r, g, b, hsv2);
+                    Color.RGBToHSV(r, g, b, hsv3);
+
+                    hsv2[0] = (hsv2[0] + 120) % 360;
+                    hsv3[0] = (hsv3[0] + 240) % 360;
 
                     //getting HEX value
                     String hex = "\nHEX: #" + Integer.toHexString(pixel);
 
                     mHexResult.setText("RGB: " + r + ", " + g + ", " + b + hex);
-                    mColorView1.setBackgroundColor(Color.rgb(r, g, b));
-                    hsv[0] = (hsv[0] + 120) % 360;
-                    mColorView2.setBackgroundColor(Color.HSVToColor(hsv));
-                    hsv[0] = (hsv[0] + 120) % 360;
-                    mColorView3.setBackgroundColor(Color.HSVToColor(hsv));\
+                    mColorView1.setBackgroundColor(Color.HSVToColor(hsv1));
+                    mColorView2.setBackgroundColor(Color.HSVToColor(hsv2));
+                    mColorView3.setBackgroundColor(Color.HSVToColor(hsv3));
 
-                    Canvas canvas = surfaceHolder.lockCanvas();
-                    canvas.drawColor(Color.BLACK);
-                    canvas.drawCircle(event.getX(), event.getY(), 50, paint);
-                    surfaceHolder.unlockCanvasAndPost(canvas);
                 }
                 return true;
             }

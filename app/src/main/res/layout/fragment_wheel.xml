@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".WheelFragment">
 
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
@@ -18,35 +19,46 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/colorView1"
         android:layout_alignParentStart="true"
-        android:text="HEX: \nRGB:"
+        android:text="RGB: \nHEX:"
         android:textColor="#000"
         android:textSize="18sp" />
 
     <View
         android:id="@+id/colorView1"
-        android:layout_width="125dp"
+        android:layout_width="130dp"
         android:layout_height="100dp"
         android:layout_below="@+id/imageView"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="10dp" />
 
     <View
         android:id="@+id/colorView2"
-        android:layout_width="125dp"
+        android:layout_width="150dp"
         android:layout_height="100dp"
         android:layout_below="@+id/imageView"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="128dp"
-        android:layout_marginTop="0dp" />
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@id/colorView1" />
 
     <View
         android:id="@+id/colorView3"
-        android:layout_width="125dp"
+        android:layout_width="130dp"
         android:layout_height="100dp"
         android:layout_below="@+id/imageView"
-        android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="259dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="0dp" />
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="0dp"
+        android:layout_toEndOf="@id/colorView2" />
+
+    <Button
+        android:id="@+id/saveColors"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="100dp"
+        android:text="Save Palette" />
 
 </RelativeLayout>
