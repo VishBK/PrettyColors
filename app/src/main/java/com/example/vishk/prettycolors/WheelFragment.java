@@ -16,6 +16,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import java.io.FileReader;
+import java.util.Iterator;
+import java.util.Map;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import org.json.JSONObject;
+
+import java.io.FileReader;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,13 +43,14 @@ import android.widget.Toast;
 public class WheelFragment extends Fragment implements View.OnTouchListener {
 
     private ImageView mImageView;
-    private TextView mHexResult;
+    private TextView mHexResult, colorName;
     private EditText mEditR, mEditG, mEditB;
     private View mColorView1, mColorView2, mColorView3;
     private Bitmap bitmap;
     private Button saveButton;
     private float[] hsv1, hsv2, hsv3;
     public PaletteItem paletteItem;
+    RetrieveFeedTask feedTask;
 
     public WheelFragment() {
         // Required empty public constructor
@@ -44,6 +65,7 @@ public class WheelFragment extends Fragment implements View.OnTouchListener {
 
         mImageView = v.findViewById(R.id.imageView);
         mHexResult = v.findViewById(R.id.hexResult);
+        colorName = v.findViewById(R.id.colorName);
         mEditR = v.findViewById(R.id.editR);
         mEditG = v.findViewById(R.id.editG);
         mEditB = v.findViewById(R.id.editB);
@@ -58,8 +80,7 @@ public class WheelFragment extends Fragment implements View.OnTouchListener {
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-//                paletteItem = new PaletteItem("Hi", "bye");
-                paletteItem = new PaletteItem(hsv1, hsv2, hsv3, "Untitled");
+                paletteItem = new PaletteItem(hsv1, hsv2, hsv3, colorName.getText().toString());
                 ColorsFragment.addPalette(paletteItem);
                 try {
                     int r = Integer.parseInt(mEditR.getText().toString());
@@ -80,11 +101,41 @@ public class WheelFragment extends Fragment implements View.OnTouchListener {
                         hsv2[0] = (hsv2[0] + 120) % 360;
                         hsv3[0] = (hsv3[0] + 240) % 360;
 
-                        String hex = "\n\nHEX: #" + String.format("%02x%02x%02x", r, g, b);
-                        mHexResult.setText("R:              G:              B:              " + hex);
+                        String hex = String.format("%02x%02x%02x", r, g, b);
+                        Log.i("HEX", hex);
+                        String dispHex = "\n\nHEX: #" + hex;
+                        mHexResult.setText("R:              G:              B:              " + dispHex);
                         mEditR.setText("" + r);
                         mEditG.setText("" + g);
                         mEditB.setText("" + b);
+
+                        //String name = feedTask.doInBackground(hex);
+                        //colorName.setText(name);
+
+                        // Instantiate the RequestQueue.
+                        RequestQueue queue = Volley.newRequestQueue(getActivity());
+                        String url = "https://api.color.pizza/v1/" + hex;
+                        Log.i("URL", url);
+
+                        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        colorName.setText(parse(response.toString()));
+                                    }
+                                }, new Response.ErrorListener() {
+
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        // TODO: Handle error
+
+                                    }
+                                });
+
+                        // Access the RequestQueue through your singleton class.
+                        queue.add(jsonObjectRequest);
+                        //parse();
 
                         mColorView1.setBackgroundColor(Color.HSVToColor(hsv1));
                         mColorView2.setBackgroundColor(Color.HSVToColor(hsv2));
@@ -141,5 +192,12 @@ public class WheelFragment extends Fragment implements View.OnTouchListener {
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         return false;
+    }
+
+    public String parse(String jsonLine) {
+        JsonObject jobj = new Gson().fromJson(jsonLine, JsonObject.class);
+        String result = jobj.get("name").getAsString();
+        Log.i("Result", result);
+        return result;
     }
 }
