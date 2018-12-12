@@ -20,7 +20,6 @@ import java.util.List;
  */
 public class ColorsFragment extends Fragment {
 
-    private View mColorView1, mColorView2, mColorView3;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     View v;
@@ -42,11 +41,7 @@ public class ColorsFragment extends Fragment {
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-//        for (int i = 0; i < 10; i++) {
-//            PaletteItem paletteItem = new PaletteItem("Title" + i, "dummy description");
-//            paletteItems.add(paletteItem);
-//        }
-        adapter = new PaletteListAdapter(paletteItems, getActivity());
+        adapter = new PaletteListAdapter(paletteItems);
         recyclerView.setAdapter(adapter);
 
         return v;

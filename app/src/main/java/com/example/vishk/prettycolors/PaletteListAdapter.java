@@ -1,6 +1,5 @@
 package com.example.vishk.prettycolors;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -20,11 +18,9 @@ import java.util.List;
 public class PaletteListAdapter extends RecyclerView.Adapter<PaletteListAdapter.ViewHolder> {
 
     private List<PaletteItem> paletteItems;
-    private Context context;
 
-    public PaletteListAdapter(List<PaletteItem> paletteItems, Context context) {
+    public PaletteListAdapter(List<PaletteItem> paletteItems) {
         this.paletteItems = paletteItems;
-        this.context = context;
     }
 
 
@@ -85,7 +81,7 @@ public class PaletteListAdapter extends RecyclerView.Adapter<PaletteListAdapter.
         public ViewHolder(View itemView) {
             super(itemView);
 
-            textViewTitle = (TextView) itemView.findViewById(R.id.textViewTitle);
+            textViewTitle = itemView.findViewById(R.id.textViewTitle);
             colorView1 = itemView.findViewById(R.id.colorView1);
             colorView2 = itemView.findViewById(R.id.colorView2);
             colorView3 = itemView.findViewById(R.id.colorView3);

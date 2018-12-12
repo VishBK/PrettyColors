@@ -105,7 +105,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="110dp"
-        android:text="TextView"
+        android:text="Color Name"
         android:textStyle="bold"
         android:textSize="20dp" />
 

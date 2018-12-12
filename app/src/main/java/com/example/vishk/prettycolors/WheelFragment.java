@@ -72,8 +72,6 @@ public class WheelFragment extends Fragment implements View.OnTouchListener {
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                paletteItem = new PaletteItem(hsv1, hsv2, hsv3, colorName.getText().toString());
-                ColorsFragment.addPalette(paletteItem);
                 try {
                     int r = Integer.parseInt(mEditR.getText().toString());
                     int g = Integer.parseInt(mEditG.getText().toString());
@@ -112,6 +110,9 @@ public class WheelFragment extends Fragment implements View.OnTouchListener {
                                     @Override
                                     public void onResponse(JSONObject response) {
                                         colorName.setText(parse(response.toString()));
+
+                                        paletteItem = new PaletteItem(hsv1, hsv2, hsv3, colorName.getText().toString());
+                                        ColorsFragment.addPalette(paletteItem);
                                     }
                                 }, new Response.ErrorListener() {
 
@@ -124,7 +125,6 @@ public class WheelFragment extends Fragment implements View.OnTouchListener {
 
                         // Access the RequestQueue through your singleton class.
                         queue.add(jsonObjectRequest);
-                        //parse();
 
                         colorName.setTextColor(Color.HSVToColor(hsv1));
                         mColorView1.setBackgroundColor(Color.HSVToColor(hsv1));
