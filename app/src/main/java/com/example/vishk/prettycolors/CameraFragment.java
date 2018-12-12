@@ -57,8 +57,8 @@ public class CameraFragment extends Fragment implements View.OnTouchListener {
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-//                palette = new PaletteItem(hsv1, hsv2, hsv3, "");
-                palette = new PaletteItem("camera dummy", "Vish");
+                palette = new PaletteItem(hsv1, hsv2, hsv3, "Untitled");
+//                palette = new PaletteItem("camera dummy", "Vish");
                 ColorsFragment.addPalette(palette);
             }
         });

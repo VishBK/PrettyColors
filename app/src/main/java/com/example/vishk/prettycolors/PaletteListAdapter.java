@@ -1,6 +1,7 @@
 package com.example.vishk.prettycolors;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -38,8 +39,9 @@ public class PaletteListAdapter extends RecyclerView.Adapter<PaletteListAdapter.
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final PaletteItem paletteItem = paletteItems.get(position);
         holder.textViewTitle.setText(paletteItem.getTitle());
-        holder.textViewDesc.setText(paletteItem.getDescription());
-        String newText = paletteItem.getTitle();
+        holder.colorView1.setBackgroundColor(Color.HSVToColor(paletteItem.getColor1()));
+        holder.colorView2.setBackgroundColor(Color.HSVToColor(paletteItem.getColor2()));
+        holder.colorView3.setBackgroundColor(Color.HSVToColor(paletteItem.getColor3()));
 
         holder.textViewTitle.addTextChangedListener(new TextWatcher() {
 
@@ -75,14 +77,18 @@ public class PaletteListAdapter extends RecyclerView.Adapter<PaletteListAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView textViewTitle;
-        public TextView textViewDesc;
+        public View colorView1;
+        public View colorView2;
+        public View colorView3;
         public LinearLayout linearLayout;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             textViewTitle = (TextView) itemView.findViewById(R.id.textViewTitle);
-            textViewDesc = (TextView) itemView.findViewById(R.id.textViewDesc);
+            colorView1 = itemView.findViewById(R.id.colorView1);
+            colorView2 = itemView.findViewById(R.id.colorView2);
+            colorView3 = itemView.findViewById(R.id.colorView3);
             linearLayout = itemView.findViewById(R.id.linearLayout);
         }
     }

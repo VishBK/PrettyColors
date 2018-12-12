@@ -58,8 +58,8 @@ public class WheelFragment extends Fragment implements View.OnTouchListener {
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                paletteItem = new PaletteItem("Hi", "bye");
-                //paletteItem = new Palette(hsv1, hsv2, hsv3, "");
+//                paletteItem = new PaletteItem("Hi", "bye");
+                paletteItem = new PaletteItem(hsv1, hsv2, hsv3, "Untitled");
                 ColorsFragment.addPalette(paletteItem);
                 try {
                     int r = Integer.parseInt(mEditR.getText().toString());

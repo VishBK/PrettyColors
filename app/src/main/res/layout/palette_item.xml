@@ -4,29 +4,41 @@
     android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
-        android:layout_margin="@dimen/activity_horizontal_margin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_horizontal_margin">
 
         <LinearLayout
             android:id="@+id/linearLayout"
-            android:padding="@dimen/activity_horizontal_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:padding="@dimen/activity_horizontal_margin">
 
             <EditText
                 android:id="@+id/textViewTitle"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
                 android:text="Title"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
 
-            <TextView
-                android:id="@+id/textViewDesc"
-                android:text="Description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+            <View
+                android:id="@+id/colorView1"
+                android:layout_width="61dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_horizontal|bottom" />
+
+            <View
+                android:id="@+id/colorView2"
+                android:layout_width="61dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_horizontal|bottom" />
+
+            <View
+                android:id="@+id/colorView3"
+                android:layout_width="61dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_horizontal|bottom" />
 
         </LinearLayout>
 

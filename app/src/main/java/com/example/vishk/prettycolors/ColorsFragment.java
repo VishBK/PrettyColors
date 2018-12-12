@@ -20,6 +20,7 @@ import java.util.List;
  */
 public class ColorsFragment extends Fragment {
 
+    private View mColorView1, mColorView2, mColorView3;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     View v;
