@@ -1,14 +1,20 @@
 package com.example.vishk.prettycolors;
 
-public class Palette {
+public class PaletteItem {
     private float[] color1, color2, color3;
     private String title;
+    private String description;
 
-    Palette(float[] hsv1, float[] hsv2, float[] hsv3, String t) {
+    PaletteItem(float[] hsv1, float[] hsv2, float[] hsv3, String t) {
         color1 = hsv1;
         color2 = hsv2;
         color3 = hsv3;
         title = t;
+    }
+
+    PaletteItem(String title, String description) {
+        this.title = title;
+        this.description = description;
     }
 
     public float[] getColor1() {
@@ -26,5 +32,9 @@ public class Palette {
     public String getTitle() {
         return title;
     }
+
+    public void setTitle(String setTitle) { title = setTitle;}
+
+    public String getDescription() { return description; }
 
 }

@@ -2,15 +2,11 @@ package com.example.vishk.prettycolors;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
-import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -29,7 +25,7 @@ public class WheelFragment extends Fragment implements View.OnTouchListener {
     private Bitmap bitmap;
     private Button saveButton;
     private float[] hsv1, hsv2, hsv3;
-    public Palette palette;
+    public PaletteItem paletteItem;
 
     public WheelFragment() {
         // Required empty public constructor
@@ -54,8 +50,8 @@ public class WheelFragment extends Fragment implements View.OnTouchListener {
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                palette = new Palette(hsv1, hsv2, hsv3, "");
-                ColorsFragment.addPalette(palette);
+                paletteItem = new PaletteItem("Hi", "bye");
+                ColorsFragment.addPalette(paletteItem);
             }
         });
 
