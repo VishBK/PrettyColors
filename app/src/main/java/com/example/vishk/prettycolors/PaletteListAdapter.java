@@ -40,12 +40,6 @@ public class PaletteListAdapter extends RecyclerView.Adapter<PaletteListAdapter.
         holder.textViewTitle.setText(paletteItem.getTitle());
         holder.textViewDesc.setText(paletteItem.getDescription());
         String newText = paletteItem.getTitle();
-        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(context, "You clicked " + paletteItem.getTitle(), Toast.LENGTH_LONG).show();
-            }
-        });
 
         holder.textViewTitle.addTextChangedListener(new TextWatcher() {
 
