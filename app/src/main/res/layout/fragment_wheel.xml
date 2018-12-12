@@ -5,21 +5,22 @@
     android:layout_height="match_parent"
     tools:context=".WheelFragment">
 
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="265dp"
+        android:layout_marginTop="10dp"
         android:contentDescription="Color Wheel"
         android:src="@drawable/color_wheel" />
 
     <TextView
-        android:id="@+id/mHexResult"
+        android:id="@+id/hexResult"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/colorView1"
         android:layout_alignParentStart="true"
-        android:text="RGB: \nHEX:"
+        android:layout_marginTop="10dp"
+        android:text="R:              G:              B:              \n\nHEX:"
         android:textColor="#000"
         android:textSize="18sp" />
 
@@ -58,7 +59,43 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="70dp"
         android:text="Save Palette" />
+
+    <EditText
+        android:id="@+id/editR"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/hexResult"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="-10dp"
+        android:ems="10"
+        android:inputType="number"
+        android:gravity="center_horizontal" />
+
+    <EditText
+        android:id="@+id/editG"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/hexResult"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="98dp"
+        android:layout_marginTop="-10dp"
+        android:ems="10"
+        android:inputType="number"
+        android:gravity="center_horizontal" />
+
+    <EditText
+        android:id="@+id/editB"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/hexResult"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="178dp"
+        android:layout_marginTop="-10dp"
+        android:ems="10"
+        android:inputType="number"
+        android:gravity="center_horizontal" />
 
 </RelativeLayout>

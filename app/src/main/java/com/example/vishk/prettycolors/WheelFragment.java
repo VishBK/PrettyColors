@@ -5,13 +5,16 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
@@ -21,6 +24,7 @@ public class WheelFragment extends Fragment implements View.OnTouchListener {
 
     private ImageView mImageView;
     private TextView mHexResult;
+    private EditText mEditR, mEditG, mEditB;
     private View mColorView1, mColorView2, mColorView3;
     private Bitmap bitmap;
     private Button saveButton;
@@ -39,7 +43,10 @@ public class WheelFragment extends Fragment implements View.OnTouchListener {
         View v = inflater.inflate(R.layout.fragment_wheel, container, false);
 
         mImageView = v.findViewById(R.id.imageView);
-        mHexResult = v.findViewById(R.id.mHexResult);
+        mHexResult = v.findViewById(R.id.hexResult);
+        mEditR = v.findViewById(R.id.editR);
+        mEditG = v.findViewById(R.id.editG);
+        mEditB = v.findViewById(R.id.editB);
         mColorView1 = v.findViewById(R.id.colorView1);
         mColorView2 = v.findViewById(R.id.colorView2);
         mColorView3 = v.findViewById(R.id.colorView3);
@@ -47,11 +54,45 @@ public class WheelFragment extends Fragment implements View.OnTouchListener {
 
         mImageView.setDrawingCacheEnabled(true);
         mImageView.buildDrawingCache(true);
+        mHexResult.setTextIsSelectable(true);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 paletteItem = new PaletteItem("Hi", "bye");
+                //paletteItem = new Palette(hsv1, hsv2, hsv3, "");
                 ColorsFragment.addPalette(paletteItem);
+                try {
+                    int r = Integer.parseInt(mEditR.getText().toString());
+                    int g = Integer.parseInt(mEditG.getText().toString());
+                    int b = Integer.parseInt(mEditB.getText().toString());
+
+                    if (r > 255 || r < 0 || g > 255 || g < 0 || b > 255 || b < 0) {
+                        Toast.makeText(getActivity(), "Invalid value", Toast.LENGTH_SHORT).show();
+                    } else {
+                        hsv1 = new float[3];
+                        hsv2 = new float[3];
+                        hsv3 = new float[3];
+
+                        Color.RGBToHSV(r, g, b, hsv1);
+                        Color.RGBToHSV(r, g, b, hsv2);
+                        Color.RGBToHSV(r, g, b, hsv3);
+
+                        hsv2[0] = (hsv2[0] + 120) % 360;
+                        hsv3[0] = (hsv3[0] + 240) % 360;
+
+                        String hex = "\n\nHEX: #" + String.format("%02x%02x%02x", r, g, b);
+                        mHexResult.setText("R:              G:              B:              " + hex);
+                        mEditR.setText("" + r);
+                        mEditG.setText("" + g);
+                        mEditB.setText("" + b);
+
+                        mColorView1.setBackgroundColor(Color.HSVToColor(hsv1));
+                        mColorView2.setBackgroundColor(Color.HSVToColor(hsv2));
+                        mColorView3.setBackgroundColor(Color.HSVToColor(hsv3));
+                    }
+                } catch (NumberFormatException e) {
+                    Log.e("Num", "Not a valid number");
+                }
             }
         });
 
@@ -79,13 +120,16 @@ public class WheelFragment extends Fragment implements View.OnTouchListener {
                     hsv3[0] = (hsv3[0] + 240) % 360;
 
                     //getting HEX value
-                    String hex = "\nHEX: #" + Integer.toHexString(pixel);
+                    String hex = "\n\nHEX: #" + Integer.toHexString(pixel);
 
-                    mHexResult.setText("RGB: " + r + ", " + g + ", " + b + hex);
+                    mHexResult.setText("R:              G:              B:              " + hex);
+                    mEditR.setText("" + r);
+                    mEditG.setText("" + g);
+                    mEditB.setText("" + b);
+
                     mColorView1.setBackgroundColor(Color.HSVToColor(hsv1));
                     mColorView2.setBackgroundColor(Color.HSVToColor(hsv2));
                     mColorView3.setBackgroundColor(Color.HSVToColor(hsv3));
-
                 }
                 return true;
             }
