@@ -3,26 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WheelFragment">
+    tools:context=".WheelFragment" >
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="265dp"
-        android:layout_marginTop="10dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="65dp"
         android:contentDescription="Color Wheel"
         android:src="@drawable/color_wheel" />
-
-    <TextView
-        android:id="@+id/hexResult"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/colorView1"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp"
-        android:text="R:              G:              B:              \n\nHEX:"
-        android:textColor="#000"
-        android:textSize="18sp" />
 
     <View
         android:id="@+id/colorView1"
@@ -53,50 +44,90 @@
         android:layout_marginEnd="0dp"
         android:layout_toEndOf="@id/colorView2" />
 
-    <Button
-        android:id="@+id/saveColors"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/rVal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="70dp"
-        android:text="Save Palette" />
+        android:layout_below="@+id/colorView1"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:text="R:"
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/editR"
         android:layout_width="40dp"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/hexResult"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="18dp"
+        android:layout_alignStart="@+id/rVal"
+        android:layout_alignTop="@+id/rVal"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="-10dp"
         android:ems="10"
+        android:gravity="center_horizontal"
+        android:imeOptions="actionNext"
         android:inputType="number"
-        android:gravity="center_horizontal" />
+        android:maxLines="1" />
+
+    <TextView
+        android:id="@+id/gVal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/colorView1"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="70dp"
+        android:text="G:"
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/editG"
         android:layout_width="40dp"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/hexResult"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="98dp"
+        android:layout_alignStart="@+id/gVal"
+        android:layout_alignTop="@+id/gVal"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="-10dp"
         android:ems="10"
+        android:gravity="center_horizontal"
+        android:imeOptions="actionNext"
         android:inputType="number"
-        android:gravity="center_horizontal" />
+        android:maxLines="1" />
+
+    <TextView
+        android:id="@+id/bVal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/colorView1"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="130dp"
+        android:text="B:"
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/editB"
         android:layout_width="40dp"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/hexResult"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="178dp"
+        android:layout_alignStart="@+id/bVal"
+        android:layout_alignTop="@+id/bVal"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="-10dp"
         android:ems="10"
+        android:gravity="center_horizontal"
+        android:imeOptions="actionDone"
         android:inputType="number"
-        android:gravity="center_horizontal" />
+        android:maxLines="1" />
+
+    <TextView
+        android:id="@+id/hexVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rVal"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:text="HEX:"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/colorName"
@@ -104,9 +135,19 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
         android:layout_marginBottom="110dp"
         android:text="Color Name"
-        android:textStyle="bold"
-        android:textSize="20dp" />
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/saveColors"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="60dp"
+        android:text="Save Palette" />
 
 </RelativeLayout>

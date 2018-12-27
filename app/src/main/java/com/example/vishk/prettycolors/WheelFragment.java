@@ -36,7 +36,7 @@ import org.json.JSONObject;
 public class WheelFragment extends Fragment implements View.OnTouchListener {
 
     private ImageView mImageView;
-    private TextView mHexResult, colorName;
+    private TextView colorName, mHexValue;
     private EditText mEditR, mEditG, mEditB;
     private View mColorView1, mColorView2, mColorView3;
     private Bitmap bitmap;
@@ -56,7 +56,7 @@ public class WheelFragment extends Fragment implements View.OnTouchListener {
         View v = inflater.inflate(R.layout.fragment_wheel, container, false);
 
         mImageView = v.findViewById(R.id.imageView);
-        mHexResult = v.findViewById(R.id.hexResult);
+        mHexValue = v.findViewById(R.id.hexVal);
         colorName = v.findViewById(R.id.colorName);
         mEditR = v.findViewById(R.id.editR);
         mEditG = v.findViewById(R.id.editG);
@@ -68,8 +68,9 @@ public class WheelFragment extends Fragment implements View.OnTouchListener {
 
         mImageView.setDrawingCacheEnabled(true);
         mImageView.buildDrawingCache(true);
-        mHexResult.setTextIsSelectable(true);
+        mHexValue.setTextIsSelectable(true);
 
+        //Hitting save button
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 try {
@@ -80,29 +81,11 @@ public class WheelFragment extends Fragment implements View.OnTouchListener {
                     if (r > 255 || r < 0 || g > 255 || g < 0 || b > 255 || b < 0) {
                         Toast.makeText(getActivity(), "Invalid value", Toast.LENGTH_SHORT).show();
                     } else {
-                        hsv1 = new float[3];
-                        hsv2 = new float[3];
-                        hsv3 = new float[3];
-
-                        Color.RGBToHSV(r, g, b, hsv1);
-                        Color.RGBToHSV(r, g, b, hsv2);
-                        Color.RGBToHSV(r, g, b, hsv3);
-
-                        hsv2[0] = (hsv2[0] + 120) % 360;
-                        hsv3[0] = (hsv3[0] + 240) % 360;
-
-                        String hex = String.format("%02x%02x%02x", r, g, b);
-                        Log.i("HEX", hex);
-                        String dispHex = "\n\nHEX: #" + hex;
-                        mHexResult.setText("R:              G:              B:              " + dispHex);
-                        mEditR.setText("" + r);
-                        mEditG.setText("" + g);
-                        mEditB.setText("" + b);
+                        String hex = setColors(r, g, b);
 
                         // Instantiate the RequestQueue.
                         RequestQueue queue = Volley.newRequestQueue(getActivity());
                         String url = "https://api.color.pizza/v1/" + hex;
-                        Log.i("URL", url);
 
                         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -118,8 +101,8 @@ public class WheelFragment extends Fragment implements View.OnTouchListener {
 
                                     @Override
                                     public void onErrorResponse(VolleyError error) {
-                                        // TODO: Handle error
-
+                                        String errorText = "Name not found";
+                                        colorName.setText(errorText);
                                     }
                                 });
 
@@ -127,9 +110,6 @@ public class WheelFragment extends Fragment implements View.OnTouchListener {
                         queue.add(jsonObjectRequest);
 
                         colorName.setTextColor(Color.HSVToColor(hsv1));
-                        mColorView1.setBackgroundColor(Color.HSVToColor(hsv1));
-                        mColorView2.setBackgroundColor(Color.HSVToColor(hsv2));
-                        mColorView3.setBackgroundColor(Color.HSVToColor(hsv3));
                     }
                 } catch (NumberFormatException e) {
                     Log.e("Num", "Not a valid number");
@@ -137,51 +117,63 @@ public class WheelFragment extends Fragment implements View.OnTouchListener {
             }
         });
 
+        //Touching color wheel
         mImageView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN || event.getAction() == MotionEvent.ACTION_MOVE) {
                     bitmap = mImageView.getDrawingCache();
-
-                    int pixel = bitmap.getPixel((int) event.getX(), (int) event.getY());
-
-                    //getting RGB values
-                    int r = Color.red(pixel);
-                    int g = Color.green(pixel);
-                    int b = Color.blue(pixel);
-
-                    hsv1 = new float[3];
-                    hsv2 = new float[3];
-                    hsv3 = new float[3];
-                    Color.RGBToHSV(r, g, b, hsv1);
-                    Color.RGBToHSV(r, g, b, hsv2);
-                    Color.RGBToHSV(r, g, b, hsv3);
-
-                    hsv2[0] = (hsv2[0] + 120) % 360;
-                    hsv3[0] = (hsv3[0] + 240) % 360;
-
-                    //getting HEX value
-                    String hex = "\n\nHEX: #" + Integer.toHexString(pixel);
-
-                    mHexResult.setText("R:              G:              B:              " + hex);
-                    mEditR.setText("" + r);
-                    mEditG.setText("" + g);
-                    mEditB.setText("" + b);
-
-                    mColorView1.setBackgroundColor(Color.HSVToColor(hsv1));
-                    mColorView2.setBackgroundColor(Color.HSVToColor(hsv2));
-                    mColorView3.setBackgroundColor(Color.HSVToColor(hsv3));
+                    try {
+                        int pixel = bitmap.getPixel((int) event.getX(), (int) event.getY());
+                        setColors(Color.red(pixel), Color.green(pixel), Color.blue(pixel));
+                    } catch (IllegalArgumentException e) {
+                        Log.e("Bounds", "Touched outside of color wheel");
+                    }
                 }
                 return true;
             }
         });
-
         return v;
     }
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         return false;
+    }
+
+    /**
+     * Calculates palette colors and sets red, green, and blue colors to editTexts and colorViews
+     * @param r Red value
+     * @param g Green value
+     * @param b Green value
+     * @return Hex value
+     */
+    private String setColors(int r, int g, int b) {
+        hsv1 = new float[3];
+        hsv2 = new float[3];
+        hsv3 = new float[3];
+        Color.RGBToHSV(r, g, b, hsv1);
+        Color.RGBToHSV(r, g, b, hsv2);
+        Color.RGBToHSV(r, g, b, hsv3);
+
+        hsv2[0] = (hsv2[0] + 120) % 360;
+        hsv3[0] = (hsv3[0] + 240) % 360;
+
+        //Getting the hex value
+        String hex = String.format("%02x%02x%02x", r, g, b);
+        String displayHex = "HEX: #" + hex;
+
+        mHexValue.setText(displayHex);
+        mEditR.setText("" + r);
+        mEditG.setText("" + g);
+        mEditB.setText("" + b);
+
+        colorName.setTextColor(Color.HSVToColor(hsv1));
+        mColorView1.setBackgroundColor(Color.HSVToColor(hsv1));
+        mColorView2.setBackgroundColor(Color.HSVToColor(hsv2));
+        mColorView3.setBackgroundColor(Color.HSVToColor(hsv3));
+
+        return hex;
     }
 
     public String parse(String jsonLine) {
