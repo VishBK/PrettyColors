@@ -57,7 +57,7 @@ public class ColorsFragment extends Fragment {
         return v;
     }
 
-    
+
     public static void addPalette(PaletteItem paletteItem) {
         paletteItems.add(paletteItem);
     }
