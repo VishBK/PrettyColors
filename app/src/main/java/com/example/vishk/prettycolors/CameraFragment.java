@@ -8,6 +8,7 @@ import android.graphics.Matrix;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,10 +29,9 @@ public class CameraFragment extends Fragment implements View.OnTouchListener {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private ImageView mCameraImage;
-    private TextView mHexResult;
+    private TextView mHexValue, mRValue, mGValue, mBValue;
     private View mColorView1, mColorView2, mColorView3;
     private Bitmap mImageBitmap;
-    private Button saveButton;
     private float[] hsv1, hsv2, hsv3;
     public PaletteItem palette;
 
@@ -44,13 +44,16 @@ public class CameraFragment extends Fragment implements View.OnTouchListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_camera, container, false);
-        mCameraImage = v.findViewById(R.id.cameraImage);
 
-        mHexResult = v.findViewById(R.id.hexResult);
+        mCameraImage = v.findViewById(R.id.cameraImage);
+        mRValue = v.findViewById(R.id.rVal);
+        mGValue = v.findViewById(R.id.gVal);
+        mBValue = v.findViewById(R.id.bVal);
+        mHexValue = v.findViewById(R.id.hexVal);
         mColorView1 = v.findViewById(R.id.colorView1);
         mColorView2 = v.findViewById(R.id.colorView2);
         mColorView3 = v.findViewById(R.id.colorView3);
-        saveButton = v.findViewById(R.id.saveColors);
+        Button saveButton = v.findViewById(R.id.saveColors);
 
         mCameraImage.setDrawingCacheEnabled(true);
         mCameraImage.buildDrawingCache(true);
@@ -85,10 +88,15 @@ public class CameraFragment extends Fragment implements View.OnTouchListener {
                     hsv2[0] = (hsv2[0] + 120) % 360;
                     hsv3[0] = (hsv3[0] + 240) % 360;
 
-                    //getting HEX value
-                    String hex = "\nHEX: #" + Integer.toHexString(pixel);
+                    //Getting the hex value
+                    String hex = String.format("%02x%02x%02x", r, g, b);
+                    String displayHex = "HEX: #" + hex;
 
-                    mHexResult.setText("RGB: " + r + ", " + g + ", " + b + hex);
+                    mRValue.setText("R: " + r);
+                    mGValue.setText("G: " + g);
+                    mBValue.setText("B: " + b);
+                    mHexValue.setText(displayHex);
+
                     mColorView1.setBackgroundColor(Color.HSVToColor(hsv1));
                     mColorView2.setBackgroundColor(Color.HSVToColor(hsv2));
                     mColorView3.setBackgroundColor(Color.HSVToColor(hsv3));

@@ -9,18 +9,13 @@
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/main_nav"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:attr/windowBackground"
-        app:itemBackground="@color/colorPrimary"
-        app:itemIconTint="@color/colorAccent"
-        app:itemTextColor="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/navigation">
-
-    </android.support.design.widget.BottomNavigationView>
+        app:itemBackground="@color/colorPrimary"
+        app:itemIconTint="@color/bottom_navigation_colors"
+        app:itemTextColor="@color/bottom_navigation_colors"
+        app:menu="@menu/navigation" />
 
     <FrameLayout
         android:id="@+id/main_frame"
@@ -39,6 +34,6 @@
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
 </android.support.constraint.ConstraintLayout>

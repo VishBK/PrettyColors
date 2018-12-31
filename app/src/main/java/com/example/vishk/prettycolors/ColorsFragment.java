@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.text.TextWatcher;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class ColorsFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
+    private TextView noPaletteText;
     View v;
 
     private static List<PaletteItem> paletteItems;
@@ -44,11 +46,18 @@ public class ColorsFragment extends Fragment {
         adapter = new PaletteListAdapter(paletteItems);
         recyclerView.setAdapter(adapter);
 
+        noPaletteText = v.findViewById(R.id.noPaletteText);
+
+        if (paletteItems.isEmpty()) {
+            noPaletteText.setVisibility(View.VISIBLE);
+        } else {
+            noPaletteText.setVisibility(View.INVISIBLE);
+        }
+
         return v;
     }
 
-
-
+    
     public static void addPalette(PaletteItem paletteItem) {
         paletteItems.add(paletteItem);
     }

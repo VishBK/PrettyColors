@@ -60,7 +60,6 @@ public class PaletteListAdapter extends RecyclerView.Adapter<PaletteListAdapter.
                 } catch (Exception e) {
                     Log.e("TITLE", "failed!!!!");
                 }
-//
             }
         });
     }

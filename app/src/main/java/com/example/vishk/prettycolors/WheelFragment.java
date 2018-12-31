@@ -40,7 +40,6 @@ public class WheelFragment extends Fragment implements View.OnTouchListener {
     private EditText mEditR, mEditG, mEditB;
     private View mColorView1, mColorView2, mColorView3;
     private Bitmap bitmap;
-    private Button saveButton;
     private float[] hsv1, hsv2, hsv3;
     public PaletteItem paletteItem;
 
@@ -64,7 +63,7 @@ public class WheelFragment extends Fragment implements View.OnTouchListener {
         mColorView1 = v.findViewById(R.id.colorView1);
         mColorView2 = v.findViewById(R.id.colorView2);
         mColorView3 = v.findViewById(R.id.colorView3);
-        saveButton = v.findViewById(R.id.saveColors);
+        Button saveButton = v.findViewById(R.id.saveColors);
 
         mImageView.setDrawingCacheEnabled(true);
         mImageView.buildDrawingCache(true);

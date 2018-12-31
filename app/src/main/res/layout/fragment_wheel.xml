@@ -17,31 +17,29 @@
 
     <View
         android:id="@+id/colorView1"
-        android:layout_width="130dp"
+        android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_below="@+id/imageView"
-        android:layout_alignParentStart="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:layout_toStartOf="@id/colorView2" />
 
     <View
         android:id="@+id/colorView2"
-        android:layout_width="150dp"
+        android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_below="@+id/imageView"
-        android:layout_marginStart="0dp"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="10dp"
-        android:layout_toEndOf="@id/colorView1" />
+        android:layout_centerHorizontal="true" />
 
     <View
         android:id="@+id/colorView3"
-        android:layout_width="130dp"
+        android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_below="@+id/imageView"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="0dp"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="0dp"
         android:layout_toEndOf="@id/colorView2" />
 
     <TextView
@@ -49,7 +47,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/colorView1"
-        android:layout_alignParentStart="true"
         android:layout_marginTop="10dp"
         android:layout_marginStart="10dp"
         android:text="R:"
@@ -125,7 +122,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/rVal"
         android:layout_marginTop="15dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         android:text="HEX:"
         android:textSize="18sp" />
 
@@ -139,7 +136,8 @@
         android:layout_marginBottom="110dp"
         android:text="Color Name"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        style="@style/ShadowText" />
 
     <Button
         android:id="@+id/saveColors"

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical" >
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -26,21 +25,24 @@
 
             <View
                 android:id="@+id/colorView1"
-                android:layout_width="61dp"
-                android:layout_height="48dp"
-                android:layout_gravity="center_horizontal|bottom" />
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="12dp"
+                android:layout_gravity="center_horizontal|center_vertical" />
 
             <View
                 android:id="@+id/colorView2"
-                android:layout_width="61dp"
-                android:layout_height="48dp"
-                android:layout_gravity="center_horizontal|bottom" />
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="12dp"
+                android:layout_gravity="center_horizontal|center_vertical" />
 
             <View
                 android:id="@+id/colorView3"
-                android:layout_width="61dp"
-                android:layout_height="48dp"
-                android:layout_gravity="center_horizontal|bottom" />
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="12dp"
+                android:layout_gravity="center_horizontal|center_vertical" />
 
         </LinearLayout>
 
